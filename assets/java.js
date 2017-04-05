@@ -22,6 +22,9 @@
 
     var destination ="";
 
+    var firstTimeConverted;
+    var currentTime;
+
 window.onload = function(){
 
     $("#add-train").on("click", function(event) {
@@ -36,9 +39,9 @@ window.onload = function(){
         
         tFrequency = $("#freq-input").val();
         
-        var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
+        firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
 
-        var currentTime = moment();
+        currentTime = moment();
         
         database.ref().push({
     
@@ -50,6 +53,8 @@ window.onload = function(){
     
             tFrequency: tFrequency
         });
+    });
+
     
         database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
             
@@ -87,5 +92,4 @@ window.onload = function(){
         
         });
 
-    });
-}
+    }
